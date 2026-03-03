@@ -1,0 +1,35 @@
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+name = "asteroids"
+version = "0.1.0"
+description = "Asteroids clone built with mini-arcade-core and pygame backend."
+authors = [{ name = "Mini Arcade Team" }]
+readme = "README.md"
+requires-python = ">=3.9,<3.12"
+dependencies = [
+  "mini-arcade-core~=1.1",
+  "mini-arcade-pygame-backend~=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest~=8.3",
+  "black~=24.10",
+  "isort~=5.13",
+  "mypy~=1.5",
+  "pylint~=3.3",
+]
+
+[tool.poetry]
+packages = [{ include = "asteroids", from = "src" }]
+
+[project.scripts]
+asteroids = "asteroids.app:run"
+
+[tool.mini-arcade.game]
+id = "asteroids"
+entrypoint = "manage.py"
+source_roots = ["src"]
