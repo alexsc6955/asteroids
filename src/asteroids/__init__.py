@@ -1,4 +1,3 @@
 """
 Asteroids game package.
 """
-

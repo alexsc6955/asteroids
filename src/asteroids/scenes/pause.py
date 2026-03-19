@@ -7,9 +7,6 @@ from __future__ import annotations
 from mini_arcade_core.scenes.autoreg import register_scene
 from mini_arcade_core.ui.menu import BaseMenuScene, MenuItem, MenuStyle
 
-from asteroids.scenes.asteroids.systems import (
-    build_asteroids_menu_capture_hotkeys_system,
-)
 from asteroids.scenes.commands import (
     BackToMenuCommand,
     RestartAsteroidsCommand,
@@ -20,12 +17,6 @@ from asteroids.scenes.commands import (
 @register_scene("asteroids_pause")
 class AsteroidsPauseScene(BaseMenuScene):
     """Pause scene."""
-
-    def on_enter(self):
-        super().on_enter()
-        self.systems.add(
-            build_asteroids_menu_capture_hotkeys_system(self.context.services)
-        )
 
     @property
     def menu_title(self) -> str | None:
@@ -41,7 +32,7 @@ class AsteroidsPauseScene(BaseMenuScene):
             button_selected_border=(160, 220, 255, 255),
             normal=(220, 226, 240, 255),
             selected=(255, 255, 255, 255),
-            hint="ENTER select  ESC resume  F12 record",
+            hint="ENTER select  ESC resume  F1 debug  F12 record",
             hint_color=(160, 176, 196, 255),
         )
 
@@ -51,6 +42,3 @@ class AsteroidsPauseScene(BaseMenuScene):
             MenuItem("restart", "RESTART", RestartAsteroidsCommand),
             MenuItem("menu", "MAIN MENU", BackToMenuCommand),
         ]
-
-    def quit_command(self):
-        return ResumeAsteroidsCommand()

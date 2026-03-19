@@ -26,6 +26,49 @@ dev = [
 [tool.poetry]
 packages = [{ include = "asteroids", from = "src" }]
 
+[tool.black]
+line-length = 79
+target-version = ["py39"]
+extend-exclude = '''/(
+    docs
+  | tests
+)/'''
+
+[tool.isort]
+profile = "black"
+line_length = 79
+known_first_party = ["asteroids"]
+skip = [".venv", "venv", "env", "build", "dist", "docs", "tests"]
+
+[tool.mypy]
+python_version = "3.9"
+packages = ["asteroids"]
+ignore_missing_imports = true
+strict = false
+
+[tool.pylint.messages_control]
+disable = [
+  "logging-fstring-interpolation",
+  "too-few-public-methods",
+  "fixme",
+  "duplicate-code",
+  "wrong-import-order",
+  "too-many-instance-attributes",
+  "too-many-locals",
+  "too-many-arguments",
+]
+
+[tool.pylint.MAIN]
+ignore-paths = [
+  "^\\.venv",
+  "^venv",
+  "^tests",
+  "^env",
+  "^build",
+  "^dist",
+  "^docs",
+]
+
 [project.scripts]
 asteroids = "asteroids.app:run"
 

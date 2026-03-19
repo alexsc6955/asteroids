@@ -12,9 +12,7 @@ from mini_arcade_core.scenes.sim_scene import Drawable
 from asteroids.scenes.asteroids.models import AsteroidsTickContext
 
 
-def _rotate_point(
-    x: float, y: float, angle_deg: float
-) -> tuple[float, float]:
+def _rotate_point(x: float, y: float, angle_deg: float) -> tuple[float, float]:
     rad = math.radians(angle_deg)
     cs = math.cos(rad)
     sn = math.sin(rad)
@@ -131,7 +129,9 @@ class DrawHud(Drawable[AsteroidsTickContext]):
         )
 
         ship = world.ship()
-        ship_respawn = float(getattr(ship, "respawn_timer", 0.0)) if ship else 0.0
+        ship_respawn = (
+            float(getattr(ship, "respawn_timer", 0.0)) if ship else 0.0
+        )
         if ship_respawn > 0.0 and not world.game_over:
             msg = "READY..."
             tw, _ = backend.text.measure(msg)
@@ -161,4 +161,3 @@ class DrawHud(Drawable[AsteroidsTickContext]):
             hint,
             color=self.hud_color,
         )
-

@@ -8,6 +8,8 @@ from enum import IntEnum
 
 
 class EntityId(IntEnum):
+    """Reserved entity-id ranges used by the Asteroids scene."""
+
     SHIP = 1
     ASTEROID_START = 100
     ASTEROID_END = 899

@@ -1,0 +1,140 @@
+# Profile id: asteroids
+# Source: games/asteroids/src/asteroids/app.py
+
+game:
+  id: asteroids
+project:
+  root: ${settings_dir}/..
+  assets_root: ${project_root}/assets
+
+scene:
+  initial_scene: asteroids_menu
+  scene_registry:
+    discover_packages:
+      - asteroids.scenes
+      - mini_arcade_core.scenes
+
+engine_config:
+  fps: 60
+  virtual_resolution: [960, 720]
+  enable_profiler: false
+  postfx:
+    enabled: false
+    active: []
+
+backend:
+  provider: pygame
+  window:
+    width: 960
+    height: 720
+    title: Asteroids (Pygame + mini-arcade-core)
+    high_dpi: false
+    resizable: true
+  renderer:
+    background_color: [8, 10, 16]
+  audio:
+    enable: false
+
+gameplay:
+  debug_overlay:
+    enabled: true
+    title: Asteroids Debug
+    sections: [timing, render, viewport, effects, stack, scene]
+  scenes:
+    asteroids_menu:
+      escape:
+        command: quit
+    asteroids_pause:
+      escape:
+        command: remove_scene
+    asteroids:
+      entities:
+        templates:
+          ship:
+            name: Ship
+            transform:
+              size:
+                width: 24.0
+                height: 28.0
+              position:
+                x:
+                  anchor: center
+                y:
+                  anchor: middle
+              rotation_deg: -90.0
+            shape:
+              kind: triangle
+            collider:
+              kind: circle
+              radius: 12.0
+            kinematic:
+              velocity:
+                vx: 0.0
+                vy: 0.0
+              acceleration:
+                ax: 0.0
+                ay: 0.0
+              max_speed: 330.0
+            style:
+              stroke:
+                color: [240, 240, 245, 255]
+                thickness: 1.0
+            ship_radius: 12.0
+            thrust_color: [255, 150, 90, 255]
+          asteroid:
+            shape:
+              kind: poly
+            collider:
+              kind: circle
+            style:
+              stroke:
+                color: [200, 210, 230, 255]
+                thickness: 1.0
+          bullet:
+            shape:
+              kind: rect
+            collider:
+              kind: circle
+            style:
+              fill: [255, 255, 255, 255]
+            life:
+              ttl: 1.1
+              alive: true
+        wave:
+          initial_count: 5
+          base_count: 3
+          count_per_level: 1
+          max_count: 14
+          min_spawn_distance_ratio: 0.26
+          radius_range: [34.0, 52.0]
+          speed_min_base: 28.0
+          speed_max_base: 64.0
+          speed_min_per_level: 1.5
+          speed_max_per_level: 3.0
+          size_level: 3
+          point_count_range: [8, 12]
+          point_radius_range: [0.72, 1.15]
+          spin_range: [-28.0, 28.0]
+          split:
+            min_radius: 10.0
+            radius_scale: 0.62
+            base_speed_min: 80.0
+            speed_scale_min: 0.75
+            speed_scale_max: 1.18
+            spin_range: [-48.0, 48.0]
+  controls:
+    asteroids:
+      bindings:
+        rotate:
+          type: axis
+          positive_keys: [RIGHT, D]
+          negative_keys: [LEFT, A]
+        thrust:
+          type: digital
+          keys: [UP, W]
+        fire:
+          type: digital
+          keys: [SPACE]
+        pause:
+          type: digital
+          keys: [ESCAPE]

@@ -8,21 +8,12 @@ from mini_arcade_core.engine.commands import QuitCommand
 from mini_arcade_core.scenes.autoreg import register_scene
 from mini_arcade_core.ui.menu import BaseMenuScene, MenuItem, MenuStyle
 
-from asteroids.scenes.asteroids.systems import (
-    build_asteroids_menu_capture_hotkeys_system,
-)
 from asteroids.scenes.commands import StartAsteroidsCommand
 
 
 @register_scene("asteroids_menu")
 class AsteroidsMenuScene(BaseMenuScene):
     """Main menu scene."""
-
-    def on_enter(self):
-        super().on_enter()
-        self.systems.add(
-            build_asteroids_menu_capture_hotkeys_system(self.context.services)
-        )
 
     @property
     def menu_title(self) -> str | None:
@@ -38,7 +29,7 @@ class AsteroidsMenuScene(BaseMenuScene):
             button_selected_border=(160, 220, 255, 255),
             normal=(220, 226, 240, 255),
             selected=(255, 255, 255, 255),
-            hint="ENTER start  ESC quit  F12 record",
+            hint="ENTER start  ESC quit  F1 debug  F12 record",
             hint_color=(160, 176, 196, 255),
         )
 
